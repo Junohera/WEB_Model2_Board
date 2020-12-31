@@ -85,5 +85,10 @@ INSERT INTO BOARD (
     , '날씨 춥다.'
 );
 
-
+SELECT * FROM member;
 SELECT * FROM board;
+
+UPDATE member
+SET
+    pwd = '1234'
+WHERE userid = 'juno';
