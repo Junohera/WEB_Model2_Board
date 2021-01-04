@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.board.dto.BoardDTO;
 import com.board.util.DataBaseManager;
+import com.board.util.Paging;
 
 public class BoardDAO {
 	private BoardDAO() {}
@@ -18,13 +19,42 @@ public class BoardDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ArrayList<BoardDTO> selectAll() {
-		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		String sql = "SELECT * FROM BOARD ORDER BY NUM DESC";
+	public int selectAllCount() {
+		int count = 0;
+		String sql = "SELECT COUNT(*) AS CNT FROM BOARD";
 		con = DataBaseManager.getConnection();
 		
 		try {
 			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt("CNT");
+			}
+			
+		} catch (SQLException e) {e.printStackTrace();
+		} finally {DataBaseManager.close(con, pstmt, rs);}
+		
+		return count;
+	}
+	
+	public ArrayList<BoardDTO> selectAll(Paging pagingUtil) {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+
+		/** <paging> */
+		int startNum = pagingUtil.getStartNum();
+		int endNum = pagingUtil.getEndNum();
+		String sql = "SELECT * FROM "
+				+ " (SELECT ROWNUM AS RN, T.* FROM "
+				+ " 	(SELECT * FROM BOARD ORDERY BY NUM DESC) T"
+				+ ") WHERE RN >= ? AND RN <= ?;";
+		/** </paging> */
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
