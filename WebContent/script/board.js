@@ -1,22 +1,36 @@
+function loginCheck() {
+	if (login.userid.value.length < 4) {
+		login.userid.focus();
+		alert("userid");
+		return false;
+	}
+	if (login.pwd.value.length < 4) {
+		login.pwd.focus();
+		alert("pwd");
+		return false;
+	}
+	return true;
+};
+	
 function boardCheck() {
-	if (document.form.pass.value === "") {
+	if (document.frm.pass.value === "") {
 		alert("pass");
-		form.pass.focus();
+		frm.pass.focus();
 		return false;
 	}
-	if (document.form.title.value === "") {
+	if (document.frm.title.value === "") {
 		alert("title");
-		form.title.focus();
+		frm.title.focus();
 		return false;
 	}
-	if (document.form.content.value === "") {
+	if (document.frm.content.value === "") {
 		alert("content");
-		form.content.focus();
+		frm.content.focus();
 		return false;
 	}
-	if (document.form.email.value === "") {
+	if (document.frm.email.value === "") {
 		alert("email");
-		form.email.focus();
+		frm.email.focus();
 		return false;
 	}
 	
@@ -55,7 +69,7 @@ function joinCheck() {
 		alert("Password must be entered.");
 		frm.pwd.focus();
 		return false;
-	}
+	}					
 	if (document.frm.pwd.value != document.frm.repwd.value) {
 		alert("Password do not match.");
 		frm.repwd.focus();
@@ -73,4 +87,40 @@ function joinCheck() {
 	}
 
 	return true;
+};
+
+function idok(userid) {
+	opener.frm.userid.value = document.frm.userid.value;
+	opener.frm.reid.value = document.frm.userid.value;
+	self.close();
+};
+
+function editCheck() {
+
+	// 이름, 암호, 암호확인
+	if (document.frm.name.value === "" || document.frm.name.length < 4) {
+		alert("name");
+		document.frm.name.focus();
+		return false;
+	}
+
+	if (document.frm.pwd.value === "" || document.pwd.name.length < 4) {
+		alert("pwd");
+		document.pwd.name.focus();
+		return false;
+	}
+
+	if (document.frm.pwd_check.value !== document.frm.pwd.value) {
+		alert("pwd_check");
+		document.frm.pwd_check.focus();
+		return false;
+	}
+	
+	return true;
+};
+
+function open_win(url, name) {
+	var opt = "toolbar=no, menubar=no, resizable=no, width=500, height=230";
+	window.open(url, name, opt);
+	// 'board.do?command=boardpassform&num=${board.num}','update'
 };

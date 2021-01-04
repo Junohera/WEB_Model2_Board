@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title> 
 <link rel="stylesheet" href="css/board.css">
+<script src="script/board.js"></script>
 </head>
 <body>
     <div id="wrap" align="center">
@@ -40,8 +41,14 @@
         <br>
         <br>
         <input type="button" value="list" onclick="location.href='board.do?command=boardList'">
-        <input type="button" value="modify">
-        <input type="button" value="delete">
+        <c:if test="${loginUser.userid == board.userid}">
+            <input type="button" value="modify"
+                onclick="open_win('board.do?command=boardpassform&num=${board.num}','update');"
+            >
+            <input type="button" value="delete"
+                onclick="open_win('board.do?command=boardpassform&num=${board.num}','delete');"
+            >
+        </c:if>
     </div>
     
 </body>

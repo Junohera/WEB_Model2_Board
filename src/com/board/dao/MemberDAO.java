@@ -58,6 +58,7 @@ public class MemberDAO {
 			if (rs.next()) {
 				result = 1;
 			}
+			
 		} catch (SQLException e) {e.printStackTrace();
 		} finally {DataBaseManager.close(con, pstmt, rs);}
 		
@@ -83,7 +84,50 @@ public class MemberDAO {
 		} catch (SQLException e) {e.printStackTrace();
 		} catch (Exception e) {e.printStackTrace();
 		} finally { DataBaseManager.close(con, pstmt, rs); }
+
+
+		
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getUserid());
+			pstmt.setString(3, member.getPwd());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setInt(6, member.getAdmin());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {e.printStackTrace();
+		} catch (Exception e) {e.printStackTrace();
+		} finally { DataBaseManager.close(con, pstmt, rs); }
 		
 		return result;
+	}
+
+	public void updateMember(MemberDTO member) {
+		String sql = "UPDATE MEMBER SET "
+				+ " PWD = ?"
+				+ ", NAME = ?"
+				+ ", PHONE = ?"
+				+ ", EMAIL = ?"
+				+ ", ADMIN = ?"
+				+ " WHERE USERID = ?"; 
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getPwd());
+			pstmt.setString(2, member.getName());
+			pstmt.setString(3, member.getPhone());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setInt(5, member.getAdmin());
+			pstmt.setString(6, member.getUserid());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		} catch (Exception e) {e.printStackTrace();
+		} finally { DataBaseManager.close(con, pstmt, rs); }
 	}
 }

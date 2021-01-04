@@ -6,29 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-    function idok(userid) {
-        opener.frm.userid.value = document.frm.userid.value;
-        opener.frm.reid.value = document.frm.userid.value;
-        self.close();
-    };
-</script>
+<link rel="stylesheet" href="css/board.css">
+<script src="script/board.js"></script>
 </head>
 <body>
-    <form action="board.do" method="GET" name="frm">
+    <form action="board.do" method="POST" name="frm">
     	<input type="hidden" name="command" value="idcheck">
         id : <input type="text" name="userid" id="userid" value="${userid}" size="20">
         <input type="submit" value="check">
     </form>
-    <c:if test="${result == 1}">
-        ${userid} is already.
-        <script>
-            opener.document.frm.userid.value = "";
-        </script>
-    </c:if>
-    <c:if test="${result == 0}">
-        ${userid} is available.
-        <input type="button" value="use" onclick="idok('${userid}');">
-    </c:if>
+    <c:choose>
+        <c:when test="${result == 0}">
+        	${userid} is available.
+            <input type="button" value="use" onclick="idok('${userid}');">
+        </c:when>
+        <c:otherwise>
+            ${userid} is already.
+            <script>
+                opener.document.frm.userid.value = "";
+            </script>
+        </c:otherwise>
+    </c:choose>
 </body>
 </html>

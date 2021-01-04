@@ -1,8 +1,8 @@
 package com.board.controller.action;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,15 +23,18 @@ public class JoinAction implements Action {
 		member.setAdmin(Integer.parseInt(request.getParameter("admin")));
 		
 		int result = MemberDAO.getIst().addMember(member);
+		String message = null;
+		String userid = null;
 		
 		if (result == 1) {
-			request.setAttribute("message", "sign up complete. do login");
-			request.setAttribute("userid", member.getUserid());
+			message = "sign up complete. do login";
+			userid = member.getUserid();
+		} else {
+			message = "sign up fail, Please try again later.";
 		}
-		else request.setAttribute("message", "sign up fail, Please try again later.");
 		
-		RequestDispatcher dp = request.getRequestDispatcher("member/loginForm.jsp");
-		dp.forward(request, response);
+		// 데이터 요청 후 또다시 request에 갖고 있던 값을 초기화하기 위해, forward가 아닌 sendredirect로 페이지 이동
+		response.sendRedirect("board.do?command=loginForm&userid=" + userid);
 	}
 
 }

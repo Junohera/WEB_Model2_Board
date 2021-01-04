@@ -17,6 +17,7 @@ public class LoginFormAction implements Action {
 		if (session.getAttribute("loginUser") != null) {
 			url = "board.do?command=boardList";
 		}
+		
 		RequestDispatcher dp = request.getRequestDispatcher(url);
 		dp.forward(request, response);
 	}

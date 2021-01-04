@@ -5,27 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="script/board.js"></script>
 <style>
 	.box {position: relative; width: 500px; height: 50px; margin: 0 auto; text-align: center; line-height: 50px;}
 	.attr1 {position: relative; width: 248px; height: 48px; float: left; background: yellowgreen; font-size: 110%; text-align: center; line-height: 50px; border: 1px solid black;}
 	.attr2 {position: relative; width: 248px; height: 48px; float: left; border: 1px solid yellowgreen; font-size: 110%; text-align: left; line-height: 50px;}
 	#footer {position: relative; width: 500px; height: 50px; text-align: center; line-height: 50px;}
 </style>
-<script>
-	function loginCheck() {
-		if (login.userid.value.length < 4) {
-			login.userid.focus();
-			alert("userid");
-			return false;
-		}
-		if (login.pwd.value.length < 4) {
-			login.pwd.focus();
-			alert("pwd");
-			return false;
-		}
-		return true;
-	}
-</script>
 </head>
 <body>
 	<form action="board.do" method="post" name="login">
@@ -36,7 +22,7 @@
 		<div class="box">
 			<div class="attr1">id</div>
 			<div class="attr2">&nbsp;&nbsp;
-				<input type="text" size="20" name="userid" style="width:200px; height:20px;">
+				<input type="text" size="20" name="userid" style="width:200px; height:20px;" value="${param.userid}">
 			</div>
 		</div>
 		<div class="box">
@@ -52,7 +38,9 @@
 				<input type="button" value="signUp" onclick="location.href='board.do?command=joinForm'">
 			</div>
 		</div>
-		<div class="box">${message}</div>
+		<div class="box">
+			${message}
+		</div>
 	</form>
 </body>
 </html>

@@ -101,4 +101,40 @@ public class BoardDAO {
 		} catch (SQLException e) {e.printStackTrace();
 		} finally {DataBaseManager.close(con, pstmt, rs);}
 	}
+
+	public void updateBoard(BoardDTO board) {
+		String sql = "UPDATE BOARD SET "
+				+ " PASS = ?"
+				+ ", EMAIL = ?"
+				+ ", TITLE = ?"
+				+ ", CONTENT = ?"
+				+ " WHERE NUM = ?"; 
+		
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getPass());
+			pstmt.setString(2, board.getEmail());
+			pstmt.setString(3, board.getTitle());
+			pstmt.setString(4, board.getContent());
+			pstmt.setInt(5, board.getNum());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		} catch (Exception e) {e.printStackTrace();
+		} finally { DataBaseManager.close(con, pstmt, rs); }
+	}
+	
+	public void deleteBoard(int num) {
+		String sql = "DELETE FROM BOARD WHERE NUM = ?";
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		} catch (Exception e) {e.printStackTrace();
+		} finally { DataBaseManager.close(con, pstmt, rs); }
+	}
 }

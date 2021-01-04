@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1>write</h1>
-	<form name="form" method="post" action="board.do">
+	<form name="frm" method="post" action="board.do">
 		<input type="hidden" name="command" value="boardwrite">
 		<table>
 			<tr>

@@ -18,8 +18,13 @@ public class ActionFactory {
 		else if (command.equals("joinForm")) ac = new JoinFormAction();
 		else if (command.equals("idcheck")) ac = new IdcheckAction();
 		else if (command.equals("join")) ac = new JoinAction();
-		else if (command.equals("editmemberform")) ac = new EditMemberFormAction();
-		else if (command.equals("editmember")) ac = new EditMemberAction();
+		else if (command.equals("editmemberForm")) ac = new EditMemberFormAction();
+		else if (command.equals("editMember")) ac = new EditMemberAction();
+		else if (command.equals("boardpassform")) ac = new BoardPassformAction();
+		else if (command.equals("boardCheckPass")) ac = new BoardCheckPassAction();
+		else if (command.equals("boardupdateform")) ac = new BoardUpdateFormAction();
+		else if (command.equals("boardUpdate")) ac = new BoardUpdateAction();
+		else if (command.equals("boardDelete")) ac = new BoardDeleteAction();
 		
 		return ac;
 	}

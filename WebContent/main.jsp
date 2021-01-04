@@ -20,7 +20,7 @@
             <tr>
                 <td colspan="5" style="border:white;text-align: right;">
                     <div style="float:left;">${loginUser.name}(${loginUser.userid})님 로그인
-                        <input type="button" value="회원정보 수정" onclick="location.href='board.do?command=editmemberform'">
+                        <input type="button" value="회원정보 수정" onclick="location.href='board.do?command=editmemberForm'">
                         <input type="button" value="로그아웃" onclick="location.href='board.do?command=logout'">
                     </div>
                     <div style="float: right;">

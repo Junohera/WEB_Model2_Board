@@ -7,15 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogoutAction implements Action {
+public class BoardPassformAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "member/loginForm.jsp";
-		request.getSession().invalidate();
-		request.setAttribute("message", "logout success");
-		RequestDispatcher dp = request.getRequestDispatcher(url);
-		dp.forward(request, response);
+		String url = "board/boardCheckPass.jsp";
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 
 }
