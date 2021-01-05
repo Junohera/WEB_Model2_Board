@@ -24,17 +24,17 @@ public class BoardListAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		Paging pagingUtil = new Paging();
-		pagingUtil.setPage(page);
+		Paging pagingInfo = new Paging();
+		pagingInfo.setPage(page);
 		
 		int total = BoardDAO.getIst().selectAllCount();
-		pagingUtil.setTotalCount(total);
+		pagingInfo.setTotalCount(total);
 		
 		/** </paging> */
 		
-		ArrayList<BoardDTO> boardList = BoardDAO.getIst().selectAll(pagingUtil);
+		ArrayList<BoardDTO> boardList = BoardDAO.getIst().selectAll(pagingInfo);
 		request.setAttribute("boardList", boardList);
-		request.setAttribute("pagingUtil", pagingUtil);
+		request.setAttribute("pagingInfo", pagingInfo);
 		RequestDispatcher dp = request.getRequestDispatcher(url);
 		dp.forward(request, response);
 	}

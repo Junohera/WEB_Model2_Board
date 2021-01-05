@@ -44,7 +44,14 @@
                     <td align="center">${board.readcount}</td>
                 </tr>
             </c:forEach>
-        </table>
+        </table><br>
+
+        <div id="paging">
+            <c:url value="action" var="board.do?command=boardList"></c:url><!-- 링크 경로 저장 -->
+           	<c:forEach var="index" begin="${pagingInfo.beginPage}" end="${pagingInfo.endPage}">
+           		${index }&nbsp;
+           	</c:forEach>
+        </div>
     </div>
 	
 </body>

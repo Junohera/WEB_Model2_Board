@@ -15,25 +15,22 @@ public class Paging {
 	}
 	
 	private void paging() {
-		/*
-            (1/10 -> 0.1) (9/10 -> 0.9) (12/10 -> 1.1) (25/10 -> 2.5) 
-            double temp = page / (double) displayPage;
+		/*(1/10 -> 0.1) (9/10 -> 0.9) (12/10 -> 1.1) (25/10 -> 2.5) */
+		double temp = page / (double) displayPage;
 
-            (0.1 -> 1.0) (0.9 -> 1.0) (1.2 -> 2.0) (2.5 -> 3.0)
-            temp = Math.ceil(temp);
+        /*(0.1 -> 1.0) (0.9 -> 1.0) (1.2 -> 2.0) (2.5 -> 3.0)*/
+		temp = Math.ceil(temp);
 
-            (1.0 -> 10) (1.0 -> 10) (2.0 0> 20) (3.0 -> 30)
-            endPage = ((int) temp) * displayPage;
+        /*(1.0 -> 10) (1.0 -> 10) (2.0 0> 20) (3.0 -> 30)*/
+		endPage = ((int) temp) * displayPage;
 
-            (1.0 -> 10) (1.0 0> 10) (2.0 -> 20) (3.0 -> 30)
-            beginPage = endPage - displayPage + 1;
-        */
-        this.endPage = ((int)(Math.ceil(page / (double)displayRow))) * displayPage;
+        /*(1.0 -> 10) (1.0 0> 10) (2.0 -> 20) (3.0 -> 30)*/
+        beginPage = endPage - displayPage + 1;
+
         System.out.println("beginPage #########################################");
         System.out.println(beginPage);
         System.out.println("endPage #########################################");
         System.out.println(endPage);
-
 
         /*
             107 / 10 -> 10.7 -> 11

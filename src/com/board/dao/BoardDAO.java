@@ -38,23 +38,23 @@ public class BoardDAO {
 		return count;
 	}
 	
-	public ArrayList<BoardDTO> selectAll(Paging pagingUtil) {
+	public ArrayList<BoardDTO> selectAll(Paging pagingInfo) {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 
-		/** <paging> */
-		int startNum = pagingUtil.getStartNum();
-		int endNum = pagingUtil.getEndNum();
+		/** <sql> */
 		String sql = "SELECT * FROM "
+				+ " (SELECT * FROM "
 				+ " (SELECT ROWNUM AS RN, T.* FROM "
-				+ " 	(SELECT * FROM BOARD ORDERY BY NUM DESC) T"
-				+ ") WHERE RN >= ? AND RN <= ?;";
-		/** </paging> */
-		con = DataBaseManager.getConnection();
+				+ " (SELECT * FROM BOARD ORDER BY NUM DESC) T"
+				+ " ) WHERE RN >= ?"
+				+ " ) WHERE RN <= ?";
+		/** </sql> */
 		
+		con = DataBaseManager.getConnection();
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startNum);
-			pstmt.setInt(2, endNum);
+			pstmt.setInt(1, pagingInfo.getStartNum());
+			pstmt.setInt(2, pagingInfo.getEndNum());
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
