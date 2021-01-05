@@ -15,6 +15,9 @@ public class Paging {
 	}
 	
 	private void paging() {
+		System.out.println("totalCount #########################################");
+		System.out.println(totalCount);
+		
 		/*(1/10 -> 0.1) (9/10 -> 0.9) (12/10 -> 1.1) (25/10 -> 2.5) */
 		double temp = page / (double) displayPage;
 

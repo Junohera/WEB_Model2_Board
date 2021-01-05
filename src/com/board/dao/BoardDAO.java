@@ -38,7 +38,7 @@ public class BoardDAO {
 		return count;
 	}
 	
-	public ArrayList<BoardDTO> selectAll(Paging pagingInfo) {
+	public ArrayList<BoardDTO> selectAll(Paging paging) {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 
 		/** <sql> */
@@ -53,8 +53,8 @@ public class BoardDAO {
 		con = DataBaseManager.getConnection();
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, pagingInfo.getStartNum());
-			pstmt.setInt(2, pagingInfo.getEndNum());
+			pstmt.setInt(1, paging.getStartNum());
+			pstmt.setInt(2, paging.getEndNum());
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {

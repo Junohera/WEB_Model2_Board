@@ -51,5 +51,32 @@
         </c:if>
     </div>
     
+    <!-- replyzoom -->
+    <div id="wrap" align="center">
+        <table>
+            <tr>
+                <th>writter</th>
+                <th>writeDate</th>
+                <th>content</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr align="center">
+                <td width="100">
+                    ${loginUser.userid}
+                    <input type="hidden" name="userid" value="${loginUser.userid}">
+                </td>
+                <td width="100">
+                    <c:set var="now" value="<%=new java.util.Date()%>"></c:set>
+                    <fmt:formatDate value="${now}" pattern="MM/dd HH:mm"></fmt:formatDate>
+                </td>
+                <td width="670">
+                    <input type="text" name="reply" id="reply" size="80">
+                </td>
+                <td width="100">
+                    <input type="submit" value="send" onclick="return reply_check();">
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

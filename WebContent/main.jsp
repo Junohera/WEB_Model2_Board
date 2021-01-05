@@ -45,13 +45,31 @@
                 </tr>
             </c:forEach>
         </table><br>
-
-        <div id="paging">
-            <c:url value="action" var="board.do?command=boardList"></c:url><!-- 링크 경로 저장 -->
-           	<c:forEach var="index" begin="${pagingInfo.beginPage}" end="${pagingInfo.endPage}">
-           		${index }&nbsp;
-           	</c:forEach>
-        </div>
+        
+        <jsp:include page="/paging/paging.jsp">
+            <jsp:param name="page" value="${pageing.page}"/>
+            <jsp:param name="beginPage" value="${paging.beginPage}" />
+            <jsp:param name="endPage" value="${paging.endPage}" />
+            <jsp:param name="prev" value="${paging.prev}" />
+            <jsp:param name="next" value="${paging.next}"/>
+        </jsp:include>
+        <%-- <div id="paging">
+            <c:url var="action" value="board.do?command=boardList"></c:url>
+            <c:if test="${paging.prev}"><a href="${action}&page=${paging.beginPage - 1}">prev</a></c:if>
+            
+           	<c:forEach var="index" begin="${paging.beginPage}" end="${paging.endPage}">
+                <c:choose>
+                    <c:when test="${paging.page == index}">
+                        ${index}&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${action}&page=${index}">${index}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+            
+            <c:if test="${paging.next}"><a href="${action}&page=${paging.endPage + 1}">next</a></c:if>
+        </div> --%>
     </div>
 	
 </body>
