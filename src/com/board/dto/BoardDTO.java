@@ -11,13 +11,7 @@ public class BoardDTO {
 	private String content;
 	private Integer readcount;
 	private Date writedate;
-	
-	
-	@Override
-	public String toString() {
-		return "BoardDTO [num=" + num + ", pass=" + pass + ", userid=" + userid + ", email=" + email + ", title=" + title
-				+ ", content=" + content + ", readcount=" + readcount + ", writedate=" + writedate + "]";
-	}
+	private Integer replycnt;
 	public Integer getNum() {
 		return num;
 	}
@@ -66,6 +60,17 @@ public class BoardDTO {
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
 	}
-	
+	public Integer getReplycnt() {
+		return replycnt;
+	}
+	public void setReplycnt(Integer replycnt) {
+		this.replycnt = replycnt;
+	}
+	@Override
+	public String toString() {
+		return "BoardDTO [num=" + num + ", pass=" + pass + ", userid=" + userid + ", email=" + email + ", title="
+				+ title + ", content=" + content + ", readcount=" + readcount + ", writedate=" + writedate
+				+ ", replycnt=" + replycnt + "]";
+	}
 	
 }

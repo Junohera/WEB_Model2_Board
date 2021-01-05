@@ -51,8 +51,12 @@
         </c:if>
     </div>
     
+    <br>
     <!-- replyzoom -->
     <div id="wrap" align="center">
+    <form action="board.do" method="post" name="frm2">
+    <input type="hidden" name="command" value="addReply">
+    <input type="hidden" name="boardnum" value="${board.num}">
         <table>
             <tr>
                 <th>writter</th>
@@ -70,13 +74,30 @@
                     <fmt:formatDate value="${now}" pattern="MM/dd HH:mm"></fmt:formatDate>
                 </td>
                 <td width="670">
-                    <input type="text" name="reply" id="reply" size="80">
+                    <input type="text" name="content" id="content" size="80">
                 </td>
                 <td width="100">
                     <input type="submit" value="send" onclick="return reply_check();">
                 </td>
             </tr>
+            
+            <c:forEach var="reply" items="${replyList}" varStatus="status">
+                <tr>
+                    <td align="center">${reply.userid}</td>
+                    <td align="center">
+                        <fmt:formatDate value="${reply.writedate}" pattern="MM/dd HH:mm"></fmt:formatDate>
+                    </td>
+                    <td>${reply.content}</td>
+                    <td align="center">
+                        <c:if test="${loginUser.userid == reply.userid}">
+                            <input type="button" value="delete"
+                            onclick="location.href='board.do?command=deleteReply&num=${reply.num}&boardnum=${reply.boardnum}'">
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
         </table>
+    </form>
     </div>
 </body>
 </html>

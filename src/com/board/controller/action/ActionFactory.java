@@ -25,6 +25,8 @@ public class ActionFactory {
 		else if (command.equals("boardupdateform")) ac = new BoardUpdateFormAction();
 		else if (command.equals("boardUpdate")) ac = new BoardUpdateAction();
 		else if (command.equals("boardDelete")) ac = new BoardDeleteAction();
+		else if (command.equals("addReply")) ac = new AddReplyAction();
+		else if (command.equals("deleteReply")) ac = new DeleteReplyAction();
 		
 		return ac;
 	}

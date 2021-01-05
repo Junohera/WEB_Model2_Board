@@ -124,3 +124,12 @@ function open_win(url, name) {
 	window.open(url, name, opt);
 	// 'board.do?command=boardpassform&num=${board.num}','update'
 };
+
+function reply_check() {
+	if (document.frm2.reply.value === "") {
+		alert("reply required");
+		document.frm2.reply.focus();
+		return false;
+	}
+	return true;
+};

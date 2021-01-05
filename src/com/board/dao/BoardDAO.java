@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.board.dto.BoardDTO;
+import com.board.dto.ReplyDTO;
 import com.board.util.DataBaseManager;
 import com.board.util.Paging;
 
@@ -67,6 +68,21 @@ public class BoardDAO {
 				board.setContent(rs.getString("content"));
 				board.setReadcount(rs.getInt("readcount"));
 				board.setWritedate(rs.getDate("writedate"));
+				
+				String sql2 = "SELECT COUNT(*) AS CNT FROM REPLY WHERE BOARDNUM = ?";
+				int num = rs.getInt("num");
+				PreparedStatement pstmt2 = con.prepareStatement(sql2);
+				pstmt2.setInt(1, num);
+				ResultSet rs2 = pstmt2.executeQuery();
+				if (rs2.next()) {
+					board.setReplycnt(rs2.getInt("CNT"));
+				} else {
+					board.setReplycnt(0);
+				}
+				
+				pstmt2.close();
+				rs2.close();
+				
 				list.add(board);
 			}
 		} catch (SQLException e) {e.printStackTrace();
@@ -166,5 +182,58 @@ public class BoardDAO {
 		} catch (SQLException e) {e.printStackTrace();
 		} catch (Exception e) {e.printStackTrace();
 		} finally { DataBaseManager.close(con, pstmt, rs); }
+	}
+
+	public ArrayList<ReplyDTO> selectAllReply(int num) {
+		ArrayList<ReplyDTO> list = new ArrayList<ReplyDTO>();
+		String sql = "SELECT * FROM REPLY WHERE BOARDNUM = ? ORDER BY NUM DESC";
+		con = DataBaseManager.getConnection();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReplyDTO reply = new ReplyDTO();
+				reply.setNum(rs.getInt("num"));
+				reply.setBoardnum(rs.getInt("boardnum"));
+				reply.setUserid(rs.getString("userid"));
+				reply.setWritedate(rs.getTimestamp("writedate"));
+				reply.setContent(rs.getString("content"));
+				list.add(reply);
+			}
+		} catch (SQLException e) {e.printStackTrace();
+		} finally {DataBaseManager.close(con, pstmt, rs);}
+		return list;
+	}
+
+	public void insertReply(ReplyDTO reply) {
+		String sql = "INSERT INTO REPLY(NUM, BOARDNUM, USERID, CONTENT)"
+				+ " VALUES("
+				+ " REPLY_SEQ.NEXTVAL"
+				+ ", ?, ?, ?)";
+		
+		con = DataBaseManager.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reply.getBoardnum());
+			pstmt.setString(2, reply.getUserid());
+			pstmt.setString(3, reply.getContent());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		} finally {DataBaseManager.close(con, pstmt, rs);}
+	}
+
+	public void deleteReply(int num) {
+		String sql = "DELETE FROM REPLY WHERE NUM = ?";
+		
+		con = DataBaseManager.getConnection();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		} finally {DataBaseManager.close(con, pstmt, rs);}
 	}
 }
